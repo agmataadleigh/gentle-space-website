@@ -42,9 +42,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # <--- PUT THE MIDDLEMAN HERE!
+    'whitenoise.middleware.WhiteNoiseMiddleware', # For your CSS
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # ... keep the others below it
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # Add this
+    'django.contrib.messages.middleware.MessageMiddleware',       # Add this
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
