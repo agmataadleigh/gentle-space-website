@@ -22,6 +22,8 @@
             animation: gradientBG 15s ease infinite;
             color: var(--text);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         @keyframes gradientBG {
@@ -42,6 +44,7 @@
         #main-content {
             display: none; max-width: 900px; margin: 0 auto;
             padding: 5vh 20px; text-align: center;
+            flex: 1; /* This pushes the footer to the bottom */
         }
 
         /* Improved Input Container */
@@ -83,7 +86,6 @@
             justify-content: space-between;
         }
 
-        /* Random Rotation for Sticky Notes */
         .note:nth-child(odd) { transform: rotate(-2deg); background: #ffebef; }
         .note:nth-child(even) { transform: rotate(2deg); background: #e3f2fd; }
         .note:nth-child(3n) { transform: rotate(1.5deg); background: #f0f4c3; }
@@ -97,7 +99,6 @@
             margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 10px;
         }
 
-        /* Action Buttons */
         .action-link { text-decoration: none; font-size: 0.9rem; }
         .like-btn { color: #e91e63; font-weight: bold; }
         .delete-btn { color: #ccc; }
@@ -106,6 +107,16 @@
         #quote-container { margin-top: 50px; display: none; padding: 20px; border-radius: 15px; }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+
+        /* Initials Footer Styling */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            opacity: 0.5;
+            letter-spacing: 3px;
+            font-size: 0.75rem;
+            color: var(--text);
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
@@ -140,7 +151,6 @@
                 <p class="note-content">{{ post.content }}</p>
                 <div class="note-footer">
                     <a href="{% url 'like_post' post.id %}" class="action-link like-btn">❤️ {{ post.likes }}</a>
-                    
                     <a href="{% url 'delete_post' post.id %}" class="action-link delete-btn" onclick="return confirm('Release this note forever?')">🗑️</a>
                 </div>
             </div>
@@ -149,6 +159,10 @@
             {% endfor %}
         </div>
     </div>
+
+    <footer id="footer-initials">
+        AZMA
+    </footer>
 
     <script>
         const quotes = [
@@ -165,10 +179,15 @@
             setTimeout(() => {
                 ws.style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
+                // Only show footer after entering
+                document.getElementById('footer-initials').style.display = 'block';
             }, 1000);
         }
 
         window.onload = function() {
+            // Hide footer on welcome screen initially
+            document.getElementById('footer-initials').style.display = 'none';
+
             if (new URLSearchParams(window.location.search).has('submitted')) {
                 enterSpace();
                 document.getElementById('interaction-box').style.display = 'none';
