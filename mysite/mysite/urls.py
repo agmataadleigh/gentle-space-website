@@ -6,4 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('like/<int:post_id>/', views.like_post, name='like_post'),
+    path('delete/<int:post_id>/', views.delete_post, name='delete_post'), # Add this!
 ]
