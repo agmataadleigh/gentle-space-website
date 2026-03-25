@@ -1,8 +1,10 @@
+from django.contrib import admin
 from django.urls import path
-from . import views
+from base import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('delete/<int:post_id>/', views.delete_post, name='delete_post'),
     path('like/<int:post_id>/', views.like_post, name='like_post'),
+    path('delete/<int:post_id>/', views.delete_post, name='delete_post'), # Add this!
 ]

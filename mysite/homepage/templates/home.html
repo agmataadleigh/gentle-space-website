@@ -44,10 +44,9 @@
         #main-content {
             display: none; max-width: 900px; margin: 0 auto;
             padding: 5vh 20px; text-align: center;
-            flex: 1; /* This pushes the footer to the bottom */
+            flex: 1; 
         }
 
-        /* Improved Input Container */
         .input-container {
             background: var(--white); padding: 40px;
             border-radius: 20px; box-shadow: 0 10px 30px var(--shadow);
@@ -59,6 +58,7 @@
             width: 100%; height: 120px; border: none; padding: 15px;
             font-size: 1.1rem; resize: none; outline: none;
             background: #fcfcfc; border-radius: 10px; margin-bottom: 20px;
+            box-sizing: border-box; /* Added to keep it inside the box */
         }
 
         .submit-btn, .enter-btn {
@@ -76,7 +76,6 @@
             gap: 25px; margin-top: 60px; padding-bottom: 50px;
         }
 
-        /* The Sticky Note Look */
         .note {
             background: #fffeb7; padding: 25px;
             box-shadow: 5px 5px 15px var(--shadow);
@@ -108,7 +107,6 @@
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        /* Initials Footer Styling */
         footer {
             text-align: center;
             padding: 30px 20px;
@@ -129,7 +127,7 @@
     </div>
 
     <div id="main-content">
-        <div id="interaction-box" class="fadeIn">
+        <div id="interaction-box">
             <h2 style="font-weight: 300; margin-bottom: 30px;">What are you grateful for today?</h2>
             <div class="input-container">
                 <form method="POST">
@@ -140,7 +138,7 @@
             </div>
         </div>
 
-        <div id="quote-container" class="fadeIn">
+        <div id="quote-container">
             <p id="quote-text" style="font-style: italic; color: var(--accent); font-size: 1.5rem;"></p>
             <a href="/" class="enter-btn" style="font-size: 0.8rem; border-color: #ddd;">Write another</a>
         </div>
@@ -179,15 +177,12 @@
             setTimeout(() => {
                 ws.style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                // Only show footer after entering
                 document.getElementById('footer-initials').style.display = 'block';
             }, 1000);
         }
 
         window.onload = function() {
-            // Hide footer on welcome screen initially
-            document.getElementById('footer-initials').style.display = 'none';
-
+            // Check if user just submitted a form
             if (new URLSearchParams(window.location.search).has('submitted')) {
                 enterSpace();
                 document.getElementById('interaction-box').style.display = 'none';
